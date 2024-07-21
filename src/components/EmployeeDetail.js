@@ -1,10 +1,9 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import './EmployeeForm.css';
 
-function EmployeeDetail({ employees }) {
+const EmployeeDetail = ({ employees }) => {
     const { employeeId } = useParams();
-    const employee = employees.find(emp => emp.email === employeeId);
+    const employee = employees.find(emp => emp.email === employeeId) || JSON.parse(localStorage.getItem('employees')).find(emp => emp.email === employeeId);
 
     if (!employee) {
         return <div>Employee not found</div>;
@@ -12,12 +11,12 @@ function EmployeeDetail({ employees }) {
 
     return (
         <div className="employee-detail">
-            <h1>{employee.name}</h1>
-            <p><strong>Email:</strong> {employee.email}</p>
-            <p><strong>Job Title:</strong> {employee.title}</p>
-            <p><strong>Department:</strong> {employee.department}</p>
+            <h2>{employee.name}</h2>
+            <p>Email: {employee.email}</p>
+            <p>Title: {employee.title}</p>
+            <p>Department: {employee.department}</p>
         </div>
     );
-}
+};
 
 export default EmployeeDetail;
